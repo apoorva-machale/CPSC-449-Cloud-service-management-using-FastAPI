@@ -14,7 +14,7 @@ This guide provides step-by-step instructions on how to set up and run this Fast
 Clone the project repository by running:
 
 ```bash
-git clone [Your Repository URL]
+git clone https://github.com/Padmini-RK/CPSC-449-Cloud-service-management-using-FastAPI.git
 ```
 ### 2. Virtual Environment Setup
 
