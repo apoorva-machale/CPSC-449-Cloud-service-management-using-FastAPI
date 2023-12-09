@@ -34,4 +34,5 @@ class UserResponse(BaseModel):
     username: str
     email: str
     role: Role
-    userCreated: bool
+    userCreated: Optional[bool] = None  
+    subscription_plan_id: Optional[str] = None
