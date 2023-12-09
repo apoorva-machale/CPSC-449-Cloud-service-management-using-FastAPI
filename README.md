@@ -59,4 +59,4 @@ Start the FastAPI application using Uvicorn:
 uvicorn main:app --reload
 ```
 ### 6. Accessing the API
-Access the Swagger UI to interact with the API at http://127.0.0.1:8000/docs.
+Access the Swagger UI to interact with the API at the localhost url.
