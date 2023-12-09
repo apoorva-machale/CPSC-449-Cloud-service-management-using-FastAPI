@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from routes.route import router
+from routes.userRoutes import router as user_router
 
 app = FastAPI()
 
@@ -20,3 +21,4 @@ app = FastAPI()
  #   return{'hello': 'world'}
 
 app.include_router(router)
+app.include_router(user_router)
