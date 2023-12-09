@@ -3,4 +3,5 @@ client = MongoClient("mongodb+srv://sundrifafu:CPSC449@cluster0.co8msb3.mongodb.
 
 db = client.cloud_service_db
 
-collection_name = db["subscription_collection"]
+subscription_collection = db["subscription_collection"]
+user_collection = db["user_collection"]
