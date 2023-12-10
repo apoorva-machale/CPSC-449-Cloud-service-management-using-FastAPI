@@ -23,8 +23,9 @@ app = FastAPI()
 #async def index():
  #   return{'hello': 'world'}
 
-app.include_router(subscription_router)
+
 app.include_router(user_router)
 app.include_router(authentication_router)
+app.include_router(subscription_router)
 app.include_router(user_subscription_router)
 app.include_router(dummyAPI_router)

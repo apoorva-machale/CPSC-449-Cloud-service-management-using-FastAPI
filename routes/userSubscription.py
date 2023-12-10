@@ -54,7 +54,6 @@ async def get_user_by_username(
         )
     
     user = user_collection.find_one({"username": username})
-    print (user)
     if user:
         # Convert the _id field to a string
         user['id'] = str(user['_id'])
@@ -71,3 +70,44 @@ async def get_user_by_username(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"User with username '{username}' not found"
         )
+    
+@router.get("/mySubscription/{userName}")
+async def get_user_subscription(
+    userName: str,
+    current_user: str = Depends(get_current_user)
+):
+    if current_user!=userName:
+        return HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to view subscription"
+        )
+    userDetails = user_collection.find_one({"username": userName})
+    if userDetails:
+        subcriptionPlanId = userDetails["subscriptionPlanId"]
+        if subcriptionPlanId:
+            subscriptionDetails = subscription_collection.find_one({"_id": ObjectId(subcriptionPlanId)})
+            if subscriptionDetails:
+                return {
+                    "subscriptionName": subscriptionDetails["name"],
+                    "description": subscriptionDetails["description"],
+                    "price": subscriptionDetails["price"],
+                    "validityPeriod": subscriptionDetails["validityPeriod"],
+                    "apiPermissions": subscriptionDetails["apiPermissions"]
+                }
+            else:
+                  raise HTTPException(
+                        status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"Subscription details not found"
+                        )
+        else:
+            raise HTTPException(
+                        status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"No associated Subscriptions"
+                        )
+    else:
+        raise HTTPException(
+                        status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"User details not found"
+                        )
+
+    
