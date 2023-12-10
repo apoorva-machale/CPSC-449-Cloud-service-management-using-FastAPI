@@ -37,7 +37,7 @@ On Windows:
 Install the required packages from requirements.txt:
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirement.txt
 ```
 ### 4. MongoDB Cloud Database Setup
 #### 4.1 Create MongoDB Cloud Account

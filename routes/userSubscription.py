@@ -109,5 +109,58 @@ async def get_user_subscription(
                         status_code=status.HTTP_404_NOT_FOUND,
                         detail=f"User details not found"
                         )
+    
+
+
+# Update customer's subscription plan
+@router.put("/users/{username}/modify-subscription", response_model=UserResponse)
+async def modify_subscription_plan(
+    username: str,
+    subscription_update: UpdateUserSubscription,
+    current_user: str = Depends(get_current_user)
+):
+    
+        # Verify that the current user is the one making the request or has permission
+        if current_user != username:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to modify subscription plan")
+
+        # Extract the subscription_plan_id from the request body
+        subscription_plan_id = subscription_update.subscription_plan_id
+
+        if not ObjectId.is_valid(subscription_plan_id):
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid plan ID")
+
+        # Check if the subscription plan exists
+        subscription_plan = subscription_collection.find_one({"_id": ObjectId(subscription_plan_id)})
+        if not subscription_plan:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Subscription plan not found")
+
+        # Update user's subscription plan
+        updated_user = user_collection.find_one_and_update(
+            {"username": username},
+            {"$set": {"subscriptionPlanId": ObjectId(subscription_plan_id)}},
+            return_document=True
+        )
+
+        if not updated_user:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+        # Convert ObjectId fields to strings
+        updated_user_dict = updated_user.to_dict() if hasattr(updated_user, "to_dict") else updated_user
+        updated_user_dict["_id"] = str(updated_user_dict["_id"])
+        updated_user_dict["subscriptionPlanId"] = str(subscription_plan_id)
+
+        message = "Subscription plan updated successfully"
+
+        # Create a UserResponse object, excluding sensitive fields like hashed_password
+        return UserResponse(
+            
+            username=updated_user_dict['username'],
+            email=updated_user_dict['email'],
+            role=updated_user_dict['role'],
+            subscription_plan_id=updated_user_dict['subscriptionPlanId']
+        )
+
+
 
     
