@@ -34,7 +34,7 @@ On Windows:
 ```
 ### 3. Install Dependencies
 
-Install the required packages from requirements.txt:
+Install the required packages from requirement.txt:
 
 ```bash
 pip install -r requirements.txt
