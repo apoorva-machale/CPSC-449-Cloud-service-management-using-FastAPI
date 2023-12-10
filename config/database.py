@@ -22,8 +22,8 @@ def push_dummy_data():
             "validityPeriod": "30 days",
             "apiPermissions": [
                 {
-                    "apiName": "dummy_api",
-                    "endpoint": "dummy",
+                    "apiName": "weather_api",
+                    "endpoint": "weather",
                     "maxUsageLimit": 5,
                 }
             ]
