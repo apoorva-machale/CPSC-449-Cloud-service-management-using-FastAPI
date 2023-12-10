@@ -3,51 +3,61 @@ from bson import ObjectId
 from utils.permission import check_api_permission
 router = APIRouter()
 
-@router.get("/weather/{location}")
-async def weather_data(location: str, permission: bool = Depends(check_api_permission)):
+@router.get("/compute")
+async def compute_service( permission: bool = Depends(check_api_permission)):
     if permission:
      return {
-        "status": "You are now accessing the weather API"
+        "status": "You are now accessing the compute API"
     }
     raise HTTPException(
         status_code=status.HTTP_403_FORBIDDEN,
         detail="Access to this API is not allowed with your subscription plan."
     )
-@router.get("/currency/exchange/{currencyCode}")
-async def weather_data(currencyCode: str, permission: bool = Depends(check_api_permission)):
+@router.get("/database-service")
+async def database_service(permission: bool = Depends(check_api_permission)):
     if permission:
      return {
-        "status": "You are now accessing the currency excahange API"
+        "status": "You are now accessing the database service API"
     }
     raise HTTPException(
         status_code=status.HTTP_403_FORBIDDEN,
         detail="Access to this API is not allowed with your subscription plan."
     )
-@router.get("/image/process")
-async def weather_data(approach: str, permission: bool = Depends(check_api_permission)):
+@router.get("/ml")
+async def ml_service(permission: bool = Depends(check_api_permission)):
     if permission:
      return {
-        "status": "You are now accessing the image processing API"
+        "status": "You are now accessing the machine learning API"
     }
     raise HTTPException(
         status_code=status.HTTP_403_FORBIDDEN,
         detail="Access to this API is not allowed with your subscription plan."
     )
-@router.get("/translate/{sourceLang}/{targetLang}")
-async def weather_data(sourceLang: str,targetLang: str, permission: bool = Depends(check_api_permission)):
+@router.get("/data-analytics")
+async def data_analytics_service(permission: bool = Depends(check_api_permission)):
     if permission:
      return {
-        "status": "You are now accessing the text translation API"
+        "status": "You are now accessing the data analytics API"
     }
     raise HTTPException(
         status_code=status.HTTP_403_FORBIDDEN,
         detail="Access to this API is not allowed with your subscription plan."
     )
-@router.get("/geolocation/{ipAddress}")
-async def weather_data(ipAddress: str, permission: bool = Depends(check_api_permission)):
+@router.get("/iot-management")
+async def iot_management_service(permission: bool = Depends(check_api_permission)):
     if permission:
      return {
-        "status": "You are now accessing the geolocation  API"
+        "status": "You are now accessing the iot management  API"
+    }
+    raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="Access to this API is not allowed with your subscription plan."
+    )
+@router.get("/cloud-storage")
+async def cloud_storage_service(permission: bool = Depends(check_api_permission)):
+    if permission:
+     return {
+        "status": "You are now accessing the cloud storage  API"
     }
     raise HTTPException(
         status_code=status.HTTP_403_FORBIDDEN,
