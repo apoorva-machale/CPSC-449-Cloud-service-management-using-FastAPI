@@ -54,3 +54,13 @@ async def weather_data(ipAddress: str, permission: bool = Depends(check_api_perm
         detail="Access to this API is not allowed with your subscription plan."
     )
 
+@router.get("/cloud_storage/{service}")
+async def cloud_storage_data(service: str, permission: bool = Depends(check_api_permission)):
+    if permission:
+        return {
+            "status": "You are now using cloud service API"
+        }
+    raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="Access to this API is not allowed with your subscription plan."
+    )

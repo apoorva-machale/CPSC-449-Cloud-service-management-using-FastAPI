@@ -1,10 +1,10 @@
 
 from fastapi import APIRouter, HTTPException, status, Path, Body, Depends
 from bson import ObjectId
-from config.database import user_collection, subscription_collection
+from config.database import user_collection, subscription_collection,collection_user_statistics
 from utils.authentication import get_current_user
 from models.updateSubscription import UpdateUserSubscription
-from models.user import UserResponse
+from models.user import UserResponse,UserStatistics
 router = APIRouter()
 
 @router.post("/users/{user_id}/subscribe")
@@ -160,6 +160,35 @@ async def modify_subscription_plan(
             role=updated_user_dict['role'],
             subscription_plan_id=updated_user_dict['subscriptionPlanId']
         )
+
+#Insert user statistics
+@router.post("/user_statistics", response_model=UserStatistics)
+async def insert_user_statistics(user_statistics: UserStatistics):
+    try:
+        result = collection_user_statistics.insert_one(user_statistics.dict())
+        if result.inserted_id is None:
+            raise HTTPException(status_code=500, detail="Failed to insert user statistics")
+
+        return user_statistics
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+#Access user statistics    
+
+@router.get("/user_statistics_by_name/{user_name}", response_model=UserStatistics)
+def get_user_statistics_by_name(user_name: str):
+    try:
+        user_statistics = collection_user_statistics.find_one({"user_name": user_name})
+        if not user_statistics:
+            raise HTTPException(status_code=404, detail="User statistics not found")
+
+        return UserStatistics(**user_statistics)
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 
 
 

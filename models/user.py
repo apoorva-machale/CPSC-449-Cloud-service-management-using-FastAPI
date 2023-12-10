@@ -36,3 +36,15 @@ class UserResponse(BaseModel):
     role: Role
     userCreated: Optional[bool] = None  
     subscription_plan_id: Optional[str] = None
+
+# class UserStatistics(BaseModel):
+#     user_id: str
+#     total_requests: int
+#     successful_requests: int
+#     failed_requests: int
+
+class UserStatistics(BaseModel):
+    user_name: str
+    total_requests: int
+    successful_requests: int
+    failed_requests: int
