@@ -1,6 +1,6 @@
 # Project Teammates
 
-- Padmini
+- Padmini R K
 - Apoorva Machale 
 - Akshay Patil
 - Devashri Manepatil
@@ -99,3 +99,8 @@ update_own_subscription
 get_own_subscription
 get_own_subscription_details
 
+### 8. Demonstration of project 
+1. User regristration, Authentication, RBAC and API Access control - [Demo](https://drive.google.com/file/d/1ljRtr5i1xFOEK0PbxLJcHd3KMQn-Lm9x/view?usp=sharing)
+2. Permission Management - [Demo](https://drive.google.com/file/d/1ZcUhwywGCKGx7-VhPlH0tVSLJm4F1mKl/view?usp=sharing)
+3. User subscription management - [Demo](https://drive.google.com/file/d/17mwoRouzvRljYGo9S44NKcppy6uVgtoP/view?usp=drive_link)
+4. API usage tracking and management - [Demo](https://drive.google.com/file/d/1d1I-q-zt1uakESj2ml1okYdP_gLY-xOn/view?usp=sharing)
