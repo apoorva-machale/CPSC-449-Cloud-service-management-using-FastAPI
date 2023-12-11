@@ -1,8 +1,9 @@
 # Project Teammates
-Padmini
-Apoorva Machale 
-Akshay Patil
-Devashri Manepatil
+
+- Padmini
+- Apoorva Machale 
+- Akshay Patil
+- Devashri Manepatil
 
 # FastAPI Project Setup Guide
 
