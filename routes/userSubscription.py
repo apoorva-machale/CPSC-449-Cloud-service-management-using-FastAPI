@@ -7,6 +7,15 @@ from models.updateSubscription import UpdateUserSubscription
 from models.user import UserResponse,UserStatistics
 router = APIRouter()
 
+from models.user import UserResponse
+from utils.authentication import validate_permission
+
+from fastapi.security import HTTPBearer
+
+
+security = HTTPBearer()
+router = APIRouter(tags=["UserSubscription"])
+
 @router.post("/users/{user_id}/subscribe")
 async def update_user_subscription(
     user_id: str,

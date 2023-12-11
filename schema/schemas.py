@@ -16,3 +16,4 @@ def individual_serial(subscription_plan) -> dict:
 
 def list_serial(subscription_plans) -> list:
     return [individual_serial(subscription_plan) for subscription_plan in subscription_plans]
+

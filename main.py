@@ -4,6 +4,7 @@ from routes.userRoutes import router as user_router
 from routes.authentication import router as authentication_router
 from routes.userSubscription import router as user_subscription_router
 from routes.dummyAPIs import router as dummyAPI_router
+from routes.permission import router as permission_router
 
 app = FastAPI()
 
@@ -29,3 +30,4 @@ app.include_router(authentication_router)
 app.include_router(subscription_router)
 app.include_router(user_subscription_router)
 app.include_router(dummyAPI_router)
+app.include_router(permission_router)
