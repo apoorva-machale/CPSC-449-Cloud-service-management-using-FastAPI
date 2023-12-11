@@ -5,7 +5,7 @@ from bson import ObjectId
 from passlib.context import CryptContext
 from pymongo.errors import DuplicateKeyError
 
-router = APIRouter()
+router = APIRouter(tags=["User Management"])
 
 # Password context for hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

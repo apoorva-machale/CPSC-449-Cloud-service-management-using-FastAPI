@@ -34,7 +34,7 @@ On Windows:
 ```
 ### 3. Install Dependencies
 
-Install the required packages from requirement.txt:
+Install the required packages from requirements.txt:
 
 ```bash
 pip install -r requirements.txt
@@ -60,3 +60,35 @@ uvicorn main:app --reload
 ```
 ### 6. Accessing the API
 Access the Swagger UI to interact with the API at the localhost url.
+
+### 7. Add Admin user
+Access the Swaager UI, register admin user using register api. { "username": "userA", "email": "userA@gmail.com", "role": "admin", "password": "abcd1234" }
+
+### 8. Setup Permissions
+Add first create_permission to the admin user Navigate to routes/permissions.py file .In /create_permission API .Comment the below lines: //if not await validate_permission("create_permission",token): // raise HTTPException(status_code=403,detail=f"User is not authorised to perform this action") for adding first create permission
+
+Get the token from /login API. Copy the token and put token in /create_permission API
+
+Hit /create_permissions API with following payload { "permissionName": "create_permission", "role": "admin" }
+
+Once this permission is added successfully . Uncomment the commented lines in step1
+
+Get the new token from /login API
+
+Now we need to add permissions for Admin and constomer role as required in API.
+
+Below is list of permissions for Admin:
+update_subscription
+list_all_subscriptions
+delete_subscription
+add_subscription 
+list_role_permissions
+delete_permissions
+list_role_permissions
+create_permission
+
+Below is list of permissions for Customer:
+update_own_subscription
+get_own_subscription
+get_own_subscription_details
+

@@ -17,11 +17,3 @@ def individual_serial(subscription_plan) -> dict:
 def list_serial(subscription_plans) -> list:
     return [individual_serial(subscription_plan) for subscription_plan in subscription_plans]
 
-def permission_serial(permission) -> dict:
-    return {
-        "id": str(permission["_id"]),
-        "name": permission["name"],
-        "description": permission["description"],
-        "apiId": permission["apiId"],
-        "endpoint": permission["endpoint"]
-    }

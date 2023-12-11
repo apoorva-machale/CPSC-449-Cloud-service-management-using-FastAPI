@@ -5,14 +5,27 @@ from config.database import user_collection, subscription_collection
 from utils.authentication import get_current_user
 from models.updateSubscription import UpdateUserSubscription
 from models.user import UserResponse
-router = APIRouter()
+from utils.authentication import validate_permission
+
+from fastapi.security import HTTPBearer
+
+
+security = HTTPBearer()
+router = APIRouter(tags=["UserSubscription"])
 
 @router.post("/users/{user_id}/subscribe")
 async def update_user_subscription(
     user_id: str,
     subscription_update: UpdateUserSubscription,  # Renamed for clarity
-    current_user: str = Depends(get_current_user)  # Require authentication
+    token:str= Depends(security)
+    # current_user: str = Depends(get_current_user)  # Require authentication
 ):
+    # Authorization 
+    token_payload = await validate_permission("update_own_subscription",token)
+    if not token_payload:
+        raise HTTPException(status_code=403,detail=f"User is not authorised to perform this action")
+    current_user = token_payload.get("sub")
+
     # Verify that the current user is the one making the request or has permission
     if current_user != user_id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to update this user's subscription")
@@ -45,8 +58,13 @@ async def update_user_subscription(
 @router.get("/users/{username}", response_model=UserResponse)
 async def get_user_by_username(
     username: str,
-    current_user: str = Depends(get_current_user)  # Include authentication
+    # current_user: str = Depends(get_current_user)  # Include authentication
+    token:str= Depends(security)
 ):
+    token_payload = await validate_permission("get_own_subscription",token)
+    if not token_payload:
+        raise HTTPException(status_code=403,detail=f"User is not authorised to perform this action")
+    current_user = token_payload.get("sub")
     if current_user != username:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -74,8 +92,14 @@ async def get_user_by_username(
 @router.get("/mySubscription/{userName}")
 async def get_user_subscription(
     userName: str,
-    current_user: str = Depends(get_current_user)
+    # current_user: str = Depends(get_current_user)
+    token:str= Depends(security)
 ):
+    
+    token_payload = await validate_permission("get_own_subscription_details",token)
+    if not token_payload:
+        raise HTTPException(status_code=403,detail=f"User is not authorised to perform this action")
+    current_user = token_payload.get("sub")
     if current_user!=userName:
         return HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
