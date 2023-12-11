@@ -7,6 +7,7 @@ subscription_collection = db["subscription_collection"]
 user_collection = db["user_collection"]
 collection_user_statistics = db["user_statistics"]
 
+
 permission_collection = db["permission_collection"]
 
 usage_collection = db["usage_collection"]
@@ -60,4 +61,5 @@ def push_dummy_data():
 
 # Uncomment the line below to push dummy data into MongoDB
 push_dummy_data()
+
 
