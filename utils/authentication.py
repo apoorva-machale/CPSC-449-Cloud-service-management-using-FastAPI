@@ -51,3 +51,20 @@ async def get_current_admin(current_user: str = Depends(get_current_user)):
             detail="The user doesn't have enough privileges"
         )
     return current_user
+
+async def validate_permission(permission_name,token:str,
+                credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"})
+        ):
+
+    payload = jwt.decode(token.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+    username =  payload.get("sub")
+    role = payload.get("role")
+    user = user_collection.find_one({"username": username,"role":role})
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="User not found in db")
+    if permission_name not in payload.get("permissions"):
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,detail="User is not authorised to perform this action")
+    return payload

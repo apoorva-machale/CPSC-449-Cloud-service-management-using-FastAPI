@@ -1,8 +1,7 @@
+from typing import List
 from pydantic import BaseModel
 
-class Permission(BaseModel):
+class permission(BaseModel):
     id: str
-    name: str
-    apiId: str
-    description: str
-    endpoint: str
+    permissionName: str
+    role: int
