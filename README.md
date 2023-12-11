@@ -1,3 +1,9 @@
+# Project Teammates
+Padmini
+Apoorva Machale 
+Akshay Patil
+Devashri Manepatil
+
 # FastAPI Project Setup Guide
 
 This guide provides step-by-step instructions on how to set up and run this FastAPI project using a virtual environment and MongoDB cloud database.
