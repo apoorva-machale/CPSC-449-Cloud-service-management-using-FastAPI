@@ -1,7 +1,7 @@
 # Project Teammates
 
 - Padmini R K
-- Apoorva Machale 
+- Apoorva Machale (Worked on Permission Management)
 - Akshay Patil
 - Devashri Manepatil
 
